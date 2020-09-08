@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:unitConverterApp/converter_route.dart';
+import 'package:unitConverterApp/unit.dart';
 
 class Category extends StatelessWidget {
   var _name;
   var _icon;
   var _bgColor;
+  Unit _unit;
 
-  Category(this._name, this._icon, this._bgColor);
+  Category(this._name, this._icon, this._bgColor, this._unit);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class Category extends StatelessWidget {
             width: 8,
           )),
       child: InkWell(
-        onTap: () => {print('TAP TAP TAP')},
+        onTap: () => {_navigateToCategory(context)},
         splashColor: _bgColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -37,6 +40,31 @@ class Category extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  _navigateToCategory(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              appBar: AppBar(
+                title: Text(_name),
+              ),
+              body: Center(
+                child: ConverterRoute(
+                  _name,
+                  _bgColor,
+                  _unit,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
